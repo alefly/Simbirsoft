@@ -8,10 +8,10 @@ namespace dz2
 {
     interface IGame
     {
-        bool checkVert();
-        bool checkGoriz();
-        bool checkDiag();
-        void checkMas();
+        bool CheckVert();
+        bool CheckGoriz();
+        bool CheckDiag();
+        void CheckMas();
         bool nextStep(int i, int j, int v);
     }
 }

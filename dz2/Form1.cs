@@ -14,10 +14,12 @@ namespace dz2
     {
         private int sizeBit;
         private int n;
-        private Game game; 
+        private Game game;
+        static public GameDatabase context;
         public Form1()
         {
             InitializeComponent();
+            context = new GameDatabase();
         }
 
         private void buttonStep_Click(object sender, EventArgs e)
@@ -65,7 +67,7 @@ namespace dz2
                             }
                             else
                             {
-                                if (Game.mas[i - 1, j - 1] != -1)
+                                if (game.Mas[i - 1, j - 1] != -1)
                                 {
                                     MessageBox.Show("Ячейка игрового поля занята. Попробуйте снова.");
                                 }
@@ -108,12 +110,12 @@ namespace dz2
 
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                    if (Game.mas[i, j] == 0)
+                    if (game.Mas[i, j] == 0)
                     {
                         e.Graphics.DrawEllipse(Pens.Purple, y + 5, x + 5, sizeBit - 10, sizeBit - 10);
                     }
                     else {
-                        if (Game.mas[i, j] == 1) {
+                        if (game.Mas[i, j] == 1) {
                             e.Graphics.DrawLine(Pens.RoyalBlue, y + 5, x + 5, y + sizeBit - 5, x + sizeBit - 5);
                             e.Graphics.DrawLine(Pens.RoyalBlue, y + 5, x + sizeBit - 5, y + sizeBit - 5, x + 5);
                         }
@@ -138,6 +140,8 @@ namespace dz2
                 }
                 else {
                     game = new Game(n);
+                    //context.Games.Add(game);
+                    //context.SaveChanges();
                     pictureBox.Refresh();
                 }
             }
@@ -147,26 +151,22 @@ namespace dz2
         }
 
         private bool checkEnd(){
-            if (game.checkVert()) {
-                MessageBox.Show("Вертикаль заполнена. Игра окончена");
-                return true;
-            }
-            if (game.checkGoriz())
+            if (game.CheckVert() || game.CheckGoriz() || game.CheckDiag() || game.Status == "Окончена")
             {
-                MessageBox.Show("Горизонталь заполнена. Игра окончена");
-                return true;
-            }
-            if (game.checkDiag())
-            {
-                MessageBox.Show("Диагональ заполнена. Игра окончена");
-                return true;
-            }
-            if (Game.status == "Окончена")
-            {
-                MessageBox.Show("Игра окончена");
+                MessageBox.Show(game.Status);
+                game.Date = DateTime.Now;
+                context.Games.Add(game);
+                context.SaveChanges();
                 return true;
             }
             return false;
-        } 
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "_dz2_GameDatabaseDataSet.Games". При необходимости она может быть перемещена или удалена.
+            this.gamesTableAdapter.Fill(this._dz2_GameDatabaseDataSet.Games);
+
+        }
     }
 }

@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.textBoxX = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -42,7 +44,16 @@
             this.textBoxN = new System.Windows.Forms.TextBox();
             this.buttonField = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.gamesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this._dz2_GameDatabaseDataSet = new dz2._dz2_GameDatabaseDataSet();
+            this.gamesTableAdapter = new dz2._dz2_GameDatabaseDataSetTableAdapters.GamesTableAdapter();
+            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gamesBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._dz2_GameDatabaseDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox
@@ -154,7 +165,7 @@
             this.buttonField.BackColor = System.Drawing.Color.MediumSlateBlue;
             this.buttonField.Location = new System.Drawing.Point(481, 90);
             this.buttonField.Name = "buttonField";
-            this.buttonField.Size = new System.Drawing.Size(118, 38);
+            this.buttonField.Size = new System.Drawing.Size(120, 38);
             this.buttonField.TabIndex = 12;
             this.buttonField.Text = "Задать размер";
             this.buttonField.UseVisualStyleBackColor = false;
@@ -169,12 +180,67 @@
             this.label7.TabIndex = 13;
             this.label7.Text = "*Дефолтный размер 3х3";
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToOrderColumns = true;
+            this.dataGridView1.AutoGenerateColumns = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dateDataGridViewTextBoxColumn,
+            this.statusDataGridViewTextBoxColumn});
+            this.dataGridView1.DataSource = this.gamesBindingSource;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Snow;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView1.Location = new System.Drawing.Point(621, 16);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(343, 446);
+            this.dataGridView1.TabIndex = 14;
+            // 
+            // gamesBindingSource
+            // 
+            this.gamesBindingSource.DataMember = "Games";
+            this.gamesBindingSource.DataSource = this._dz2_GameDatabaseDataSet;
+            // 
+            // _dz2_GameDatabaseDataSet
+            // 
+            this._dz2_GameDatabaseDataSet.DataSetName = "_dz2_GameDatabaseDataSet";
+            this._dz2_GameDatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // gamesTableAdapter
+            // 
+            this.gamesTableAdapter.ClearBeforeFill = true;
+            // 
+            // dateDataGridViewTextBoxColumn
+            // 
+            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
+            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
+            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
+            this.dateDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // statusDataGridViewTextBoxColumn
+            // 
+            this.statusDataGridViewTextBoxColumn.DataPropertyName = "Status";
+            this.statusDataGridViewTextBoxColumn.HeaderText = "Status";
+            this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
+            this.statusDataGridViewTextBoxColumn.ReadOnly = true;
+            this.statusDataGridViewTextBoxColumn.Width = 200;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.ClientSize = new System.Drawing.Size(616, 470);
+            this.ClientSize = new System.Drawing.Size(976, 470);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.buttonField);
             this.Controls.Add(this.textBoxN);
@@ -192,7 +258,11 @@
             this.ForeColor = System.Drawing.Color.Snow;
             this.Name = "Form1";
             this.Text = "Крестики-нолики";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gamesBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._dz2_GameDatabaseDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -214,6 +284,12 @@
         private System.Windows.Forms.TextBox textBoxN;
         private System.Windows.Forms.Button buttonField;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private _dz2_GameDatabaseDataSet _dz2_GameDatabaseDataSet;
+        private System.Windows.Forms.BindingSource gamesBindingSource;
+        private _dz2_GameDatabaseDataSetTableAdapters.GamesTableAdapter gamesTableAdapter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
     }
 }
 

@@ -7,21 +7,25 @@ using System.Threading.Tasks;
 namespace dz2
 {
 
-    class Game : IGame
+    public class Game : IGame
     {
-        public static int[,] mas;
-        private static int n;
-        public static string status { get; protected set; }
+        public int Id { get; protected set; }
+        public int[,] Mas { get; set; }
+        public int N { get; set; }
+        public DateTime Date { get ; set; }
+        public string Status { get; set; }
+        public int Steps { get; set; }
 
         public Game(int size) {
-            status = "Не окончена";
-            n = size;
-            mas = new int[n, n];
-            for (int i = 0; i < n; i++)
+            Date = DateTime.Now;
+            Status = "Игра не окончена";
+            N = size;
+            Mas = new int[N, N];
+            for (int i = 0; i < N; i++)
             {
-                for (int j = 0; j < n; j++)
+                for (int j = 0; j < N; j++)
                 {
-                    mas[i, j] = -1;
+                    Mas[i, j] = -1;
                 }
             }
         }
@@ -29,7 +33,7 @@ namespace dz2
         public bool nextStep(int i, int j, int v) {
             try
             {
-                if (i > n || i < 1 || j > n || j < 1)
+                if (i > N || i < 1 || j > N || j < 1)
                 {
                     return false;
                 }
@@ -42,13 +46,14 @@ namespace dz2
                     }
                     else
                     {
-                        if (mas[i - 1, j - 1] != -1)
+                        if (Mas[i - 1, j - 1] != -1)
                         {
                             return false;
                         }
                         else
                         {
-                            mas[i - 1, j - 1] = v;
+                            Mas[i - 1, j - 1] = v;
+                            Steps++;
                         }
                     }
                 }
@@ -62,84 +67,115 @@ namespace dz2
             return true;
         } 
 
-        public bool checkVert() {
+        public bool CheckVert() {
             bool check = true;
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < N; i++)
             {
                 check = true;
-                for (int j = 1; j < n; j++)
+                for (int j = 1; j < N; j++)
                 {
-                    if (mas[i, j] != mas[i, j - 1] || mas[i, j] == -1)
+                    if (Mas[i, j] != Mas[i, j - 1] || Mas[i, j] == -1)
                     {
                         check = false;
                     }
                 }
                 if (check)
                 {
+                    if (Mas[i, 0] == 1)
+                    {
+                        Status = "Игра окончена. Победили крестики";
+                    }
+                    else {
+                        Status = "Игра окончена.Победили нолики";
+                    }
                     return true;
                 }
             }
             return false;
         }
 
-        public bool checkGoriz()
+        public bool CheckGoriz()
         {
             bool check = true; ;
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < N; i++)
             {
                 check = true;
-                for (int j = 1; j < n; j++)
+                for (int j = 1; j < N; j++)
                 {
-                    if (mas[j, i] != mas[j - 1, i] || mas[j, i] == -1)
+                    if (Mas[j, i] != Mas[j - 1, i] || Mas[j, i] == -1)
                     {
                         check = false;
                     }
                 }
                 if (check)
                 {
+                    if (Mas[0, i] == 1)
+                    {
+                        Status = "Игра окончена. Победили крестики";
+                    }
+                    else
+                    {
+                        Status = "Игра окончена. Победили нолики";
+                    }
                     return true;
                 }
             }
             return false;
         }
 
-        public bool checkDiag()
+        public bool CheckDiag()
         {
             bool check = true;
-            for (int i = 1; i < n; i++)
+            for (int i = 1; i < N; i++)
             {
-                if (mas[i, i] != mas[i - 1, i - 1] || mas[i, i] == -1)
+                if (Mas[i, i] != Mas[i - 1, i - 1] || Mas[i, i] == -1)
                 {
                     check = false;
                 }
             }
             if (check)
             {
+                if (Mas[0, 0] == 1)
+                {
+                    Status = "Игра окончена. Победили крестики";
+                }
+                else
+                {
+                    Status = "Игра окончена. Победили нолики";
+                }
                 return true;
             }
 
             check = true;
-            for (int i = 1; i < n; i++)
+            for (int i = 1; i < N; i++)
             {
-                if (mas[i, n - i - 1] != mas[i - 1, n - i] || mas[i - 1, n - i] == -1)
+                if (Mas[i, N - i - 1] != Mas[i - 1, N - i] || Mas[i - 1, N - i] == -1)
                 {
                     check = false;
                 }
             }
             if (check)
             {
+                if (Mas[N-1, 0] == 1)
+                {
+                    Status = "Игра окончена. Победили крестики";
+                }
+                else
+                {
+                    Status = "Игра окончена. Победили нолики";
+                }
                 return true;
             }
             return false;
         }
 
-        public void checkMas() {
+        public void CheckMas() {
             bool check = true;
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < N; i++)
             {
-                for (int j = 0; j < n; j++)
+                for (int j = 0; j < N; j++)
                 {
-                    if (mas[i, j] == -1)
+                    if (Mas[i, j] == -1)
                     {
                         check = false;
                     }
@@ -147,7 +183,7 @@ namespace dz2
             }
             if (check)
             {
-                status = "Окончена";
+                Status = "Игра окончена. Ничья";
             }
         }
     }
