@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace dz2
 {
@@ -28,6 +24,16 @@ namespace dz2
                     Mas[i, j] = -1;
                 }
             }
+        }
+
+        public Game(Game g)
+        {
+            Id = g.Id;
+            Mas = g.Mas;
+            N = g.N;
+            Date = g.Date;
+            Status = g.Status;
+            Steps = g.Steps;
         }
 
         public bool nextStep(int i, int j, int v) {
